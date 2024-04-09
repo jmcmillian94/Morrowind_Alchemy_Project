@@ -91,11 +91,13 @@ def searchEngine(choice):
     while True:
         #choice 1 will ask for an ingredient and then convert it to lower case to check it in dictionary and return all efects of that ingredient
         if choice == 1:
-            ingredient = input('Enter ingredient name: ').lower()
+            ingredient = input('Enter ingredient name:').lower()
             if ingredient in ingredients:
-                return ingredients[ingredient]
+                print(ingredients[ingredient])
+            elif ingredient == 'exit':
+                break
             else:
-                print('Ingredient not found. Please try again.')
+                print('Ingredient not found. Please try again or type exit to return to previous menu.')
         #choice 2 will ask for an effect as input and then convert that to lower case which it will then check to see if it matches an effect in the list of effects. 
         #If it does it will iterate through the dictionary checking for all instances of that effect and the retrun all ingredients with that effect. 
         elif choice == 2:
@@ -105,9 +107,11 @@ def searchEngine(choice):
                 for key, value in ingredients.items():
                     if effect in value:
                         foundKeys.append(key)
-                return foundKeys
+                print(foundKeys)
+            elif effect == 'exit':
+                break
             else:
-                print('Effect not found. Please try again.') 
+                print('Effect not found. Please try again or type exit to return to previous menu.1') 
         else:
             print('Invalid choice. Please choose again.')
             # If choice is invalid, ask the user for input again
