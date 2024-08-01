@@ -1,8 +1,3 @@
-
-#importing libraries
-import pyfiglet as pfig
-
-#Dictionary of all ingredients and their effects
 ingredients = {'alit hide': ['drain intelligence', 'resist poison', 'telekinesis','detect animal'],
 'ampoule pod': ['water walking', 'paralyze','detect animal', 'drain willpower'],
 'ash salts': ['drain agility', 'resist magicka', 'cure blight disease' 'resist magicka'],
@@ -77,7 +72,6 @@ ingredients = {'alit hide': ['drain intelligence', 'resist poison', 'telekinesis
 'willow anther': ['drain personality','frost shield','cure common disease','cure paralyzation']
 }
 
-#list of effects used for iteration in fucntion
 listOfEffects = ['blind','burden','night eye','cure blight disease','cure common disease','paralyze','cure paralyzation','cure poison','poison','damage fatigue','damage health','drain speed','resist common disease',
                 'damage intelligence','damage magicka','detect animal','drain strength','detect enchantment','resist frost','detect key','dispel','resist magicka','drain alteration','drain agility','feather','fire shield',
                 'restore agility','drain endurance','restore endurance','restore fatigue','drain fatigue','fortify attack','fortify endurance','fortify fatigue','restore health','fortify health','fortify intelligence',
@@ -85,58 +79,3 @@ listOfEffects = ['blind','burden','night eye','cure blight disease','cure common
                 'drain intelligence','restore willpower','fortify willpower','spell absorption','drain luck','frost shield','telekinesis','invisibility','vampirism','water breathing','levitate','water walking','light',
                 'weakness to fire','weakness to poison','drain magicka','drain personality','recall','reflect','resist fire','drain willpower','resist paralysis','resist poison','resist shock','fortify agility',
                 'restore intelligence','restore magicka','frost damage','swift swim','lightning shield']
-
-#search engine function, takes 1 parameter 'choice' which is given as an input in the program. The function will preform an elif loop based on choice passed in
-def searchEngine(choice):
-    while True:
-        #choice 1 will ask for an ingredient and then convert it to lower case to check it in dictionary and return all efects of that ingredient
-        if choice == 1:
-            ingredient = input('Enter ingredient name:').lower()
-            if ingredient in ingredients:
-                print(ingredients[ingredient])
-            elif ingredient == 'exit':
-                break
-            else:
-                print('Ingredient not found. Please try again or type exit to return to previous menu.')
-        #choice 2 will ask for an effect as input and then convert that to lower case which it will then check to see if it matches an effect in the list of effects. 
-        #If it does it will iterate through the dictionary checking for all instances of that effect and the retrun all ingredients with that effect. 
-        elif choice == 2:
-            effect = input('Enter effect name: ').lower()
-            if effect in listOfEffects:
-                foundKeys = []
-                for key, value in ingredients.items():
-                    if effect in value:
-                        foundKeys.append(key)
-                print(foundKeys)
-            elif effect == 'exit':
-                break
-            else:
-                print('Effect not found. Please try again or type exit to return to previous menu.1') 
-        else:
-            print('Invalid choice. Please choose again.')
-            # If choice is invalid, ask the user for input again
-            print('1. list effects of ingredient')
-            print('2. search for ingredient by effect')
-            choice = int(input('Please select an option'))
-
-#this function is a loop that will ask the user which choice they want to make and will repeat over and over again until the user selects the exit option
-def programLoop():
-    while True:
-        print('1. List effects of ingredient')
-        print('2. Search for ingredient by effect')
-        print('3. Exit')
-        choice = int(input('Please select an option: '))
-        
-        if choice == 1 or choice == 2:
-            searchEngine(choice)
-        elif choice == 3:
-            print('Exiting the program...')
-            break  # Exit the loop
-        else:
-            print('Invalid choice. Please select again.')
-
-
-#printing intro graphic
-print(pfig.figlet_format("Morrowind Alchemy Project V1.0", font="Big",justify='center',width=100))
-
-programLoop()
