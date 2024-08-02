@@ -8,6 +8,12 @@ from ingredients_dict import listOfEffects
  
 pygame.init()
 surface = pygame.display.set_mode((1920, 1080))
+
+background_image = pygame.image.load('morrowind_background.png')
+background_image = pygame.transform.scale(background_image, (1920, 1080))
+
+def draw_background():
+    surface.blit(background_image, (0, 0))
  
 def ingredient_menu():
     mainmenu._open(ingredient)
@@ -41,17 +47,31 @@ def search_effect(input_text):
 
  
  
-mainmenu = pygame_menu.Menu('Morrowind Alchemy Helper', 1920, 1080, theme=themes.THEME_DARK)
+mainmenu = pygame_menu.Menu('Morrowind Alchemy Helper', 1024, 768, theme=themes.THEME_DARK)
 mainmenu.add.button('Search by Ingredient', ingredient_menu)
 mainmenu.add.button('Search by Effect', effect_menu)
 mainmenu.add.button('Quit', pygame_menu.events.EXIT)
+
+
  
-effect = pygame_menu.Menu('Potion Effect Search', 1920, 1080, theme=themes.THEME_DARK)
+effect = pygame_menu.Menu('Potion Effect Search', 1024, 768, theme=themes.THEME_DARK)
 effect.add.text_input(title='effect: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_effect)
 effect_result_label = effect.add.label('Search results will appear here.')
 
-ingredient = pygame_menu.Menu('Potion Ingredient Search', 1920, 1080, theme=themes.THEME_DARK)
+ingredient = pygame_menu.Menu('Potion Ingredient Search', 1024, 768, theme=themes.THEME_DARK)
 ingredient.add.text_input(title='effect: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_ingredient)
 ingredient_result_label = ingredient.add.label('Search results will appear here.')
 
-mainmenu.mainloop(surface)
+#mainmenu.mainloop(surface)
+
+while True:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+    
+    draw_background()
+    mainmenu.update(events)
+    mainmenu.draw(surface)
+    pygame.display.flip()
