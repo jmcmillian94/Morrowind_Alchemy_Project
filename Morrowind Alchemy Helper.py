@@ -16,34 +16,51 @@ def draw_background():
     surface.blit(background_image, (0, 0))
  
 def ingredient_menu():
-    mainmenu._open(ingredient)
+    mainmenu._open(ingredient_submenu)
     
 ingredient_result_label = None
 
-def search_ingredient(input_text):
-    global ingredient_result_label
-    potion_ingredient = input_text.lower()
-    if potion_ingredient in ingredients:
-            effects = ingredients[potion_ingredient]
-            ingredient_result_label.set_title(', '.join(ingredients[potion_ingredient]) if effects else 'No ingredients found.')
-    else:
-            ingredient_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')   
+#def search_ingredient(input_text):
+#    global ingredient_result_label
+#    potion_ingredient = input_text.lower()
+#    if potion_ingredient in ingredients:
+#            effects = ingredients[potion_ingredient]
+#            ingredient_result_label.set_title(', '.join(ingredients[potion_ingredient]) if effects else 'No ingredients found.')
+#    else:
+#            ingredient_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')   
  
+
+def search_ingredient(selected, value):
+    global ingredient_result_label
+    potion_ingredient = value.lower()
+    if potion_ingredient in ingredients:
+        effects = ingredients[potion_ingredient]
+        ingredient_result_label.set_title(', '.join(effects) if effects else 'No ingredients found.')
+    else:
+        ingredient_result_label.set_title('Ingredient not found. Please try again or type exit to return to previous menu.')
+
 def effect_menu():
-    mainmenu._open(effect)
+    mainmenu._open(effect_submenu)
 
 effect_result_label = None
 
-def search_effect(input_text):
+#def search_effect(input_text):
+#    global effect_result_label
+#    potion_effect = input_text.lower()
+#    if potion_effect in listOfEffects:
+#        found_keys = [key for key, value in ingredients.items() if potion_effect in value]
+#        effect_result_label.set_title(', '.join(found_keys) if found_keys else 'No ingredients found.')
+#    else:
+#        effect_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')    
+
+def search_effect(selected, value):
     global effect_result_label
-    potion_effect = input_text.lower()
+    potion_effect = value.lower()
     if potion_effect in listOfEffects:
         found_keys = [key for key, value in ingredients.items() if potion_effect in value]
         effect_result_label.set_title(', '.join(found_keys) if found_keys else 'No ingredients found.')
     else:
-        effect_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')    
-
-
+        effect_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')
 
  
  
@@ -54,15 +71,16 @@ mainmenu.add.button('Quit', pygame_menu.events.EXIT)
 
 
  
-effect = pygame_menu.Menu('Potion Effect Search', 1024, 768, theme=themes.THEME_DARK)
-effect.add.text_input(title='effect: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_effect)
-effect_result_label = effect.add.label('Search results will appear here.')
+effect_submenu = pygame_menu.Menu('Potion Effect Search', 1024, 768, theme=themes.THEME_DARK)
+#effect_submenu.add.text_input(title='effect: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_effect)
+effect_submenu.add.dropselect(title='effect: ',items=[(effect, effect) for effect in listOfEffects],onchange=search_effect)
+effect_result_label = effect_submenu.add.label('Search results will appear here.', max_char=-1)
 
-ingredient = pygame_menu.Menu('Potion Ingredient Search', 1024, 768, theme=themes.THEME_DARK)
-ingredient.add.text_input(title='effect: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_ingredient)
-ingredient_result_label = ingredient.add.label('Search results will appear here.')
+ingredient_submenu = pygame_menu.Menu('Potion Ingredient Search', 1024, 768, theme=themes.THEME_DARK)
+#(title='ingredient: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_ingredient)
+ingredient_submenu.add.dropselect(title='ingredient: ',items=[(ingredient, ingredient) for ingredient in ingredients.keys()],onchange=search_ingredient)
+ingredient_result_label = ingredient_submenu.add.label('Search results will appear here.', max_char=-1)
 
-#mainmenu.mainloop(surface)
 
 while True:
     events = pygame.event.get()
