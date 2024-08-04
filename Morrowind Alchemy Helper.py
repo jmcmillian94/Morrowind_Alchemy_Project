@@ -61,13 +61,12 @@ mainmenu.add.button('Search by Effect', effect_menu)
 mainmenu.add.button('Quit', pygame_menu.events.EXIT)
 
 effect_submenu = pygame_menu.Menu('Potion Effect Search', 800,600, theme=custom_theme)
-effect_submenu.add.dropselect(title='effect: ',items=[(effect, effect) for effect in listOfEffects],onchange=search_effect)
-effect_result_label = effect_submenu.add.label('Search results will appear here.', max_char=-1)
+effect_submenu.add.dropselect(title='effect: ',items=[(effect, effect) for effect in listOfEffects],onchange=search_effect,selection_box_height=7)
+effect_result_label = effect_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
 
 ingredient_submenu = pygame_menu.Menu('Potion Ingredient Search', 800,600, theme=custom_theme)
-#(title='ingredient: ', cursor_selection_enable= True, copy_paste_enable= True, onreturn=search_ingredient)
-ingredient_submenu.add.dropselect(title='ingredient: ',items=[(ingredient, ingredient) for ingredient in ingredients.keys()],onchange=search_ingredient)
-ingredient_result_label = ingredient_submenu.add.label('Search results will appear here.', max_char=-1)
+ingredient_submenu.add.dropselect(title='ingredient: ',items=[(ingredient, ingredient) for ingredient in ingredients.keys()],onchange=search_ingredient,selection_box_height=7)
+ingredient_result_label = ingredient_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
 
 
 while True:
@@ -81,3 +80,4 @@ while True:
     mainmenu.update(events)
     mainmenu.draw(surface)
     pygame.display.flip()
+    pygame.draw.rect(surface, (128, 128, 128), pygame.Rect(400, 400, 300, 300))
