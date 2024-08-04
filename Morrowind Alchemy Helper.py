@@ -6,11 +6,17 @@ from pygame_menu import themes
 from ingredients_dict import ingredients
 from ingredients_dict import listOfEffects
 
+#set title and icon that appear at top of window
+pygame.display.set_caption('Morrowind Alchemy Helper')
+icon = pygame.image.load('alchemy.png')
+pygame.display.set_icon(icon)
+
 #initialize pygame, game screen, and backgorund image
 pygame.init()
 surface = pygame.display.set_mode((1920,1080))
 background_image = pygame.image.load('background.png')
 background_image = pygame.transform.scale(background_image, (1920,1080))
+
 
 #function used in loop that draws background image on screen
 def draw_background():
