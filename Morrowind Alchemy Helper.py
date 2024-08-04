@@ -36,7 +36,7 @@ def toggle_music():
 
 #creating a custom theme for pygame menus
 custom_theme = themes.THEME_GREEN.copy()
-custom_theme.background_color = (0,0,0,0)
+custom_theme.background_color = (128, 128, 128)
 custom_theme.title_font = pygame_menu.font.FONT_FIRACODE_BOLD_ITALIC
 custom_theme.widget_font = pygame_menu.font.FONT_FIRACODE_BOLD_ITALIC
 custom_theme.title_font_color = (0,0,0) 
