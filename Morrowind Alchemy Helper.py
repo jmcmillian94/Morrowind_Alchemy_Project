@@ -8,9 +8,9 @@ from ingredients_dict import listOfEffects
 
 #initialize pygame, game screen, and backgorund image
 pygame.init()
-surface = pygame.display.set_mode((800,600))
+surface = pygame.display.set_mode((1920,1080))
 background_image = pygame.image.load('background.png')
-background_image = pygame.transform.scale(background_image, (800,600))
+background_image = pygame.transform.scale(background_image, (1920,1080))
 
 #function used in loop that draws background image on screen
 def draw_background():
@@ -77,19 +77,19 @@ def search_effect(selected, value):
 
  
 #creating the main menu
-mainmenu = pygame_menu.Menu('Morrowind Alchemy Helper', 800,600, theme=custom_theme)
+mainmenu = pygame_menu.Menu('Morrowind Alchemy Helper', 1920,1080, theme=custom_theme)
 mainmenu.add.button('Search by Ingredient', ingredient_menu)
 mainmenu.add.button('Search by Effect', effect_menu)
 mainmenu.add.button('Music ON/OFF', toggle_music)
 mainmenu.add.button('Quit', pygame_menu.events.EXIT)
 
 #creating the effect search submenu
-effect_submenu = pygame_menu.Menu('Potion Effect Search', 800,600, theme=custom_theme)
+effect_submenu = pygame_menu.Menu('Potion Effect Search', 1920,1080, theme=custom_theme)
 effect_submenu.add.dropselect(title='effect: ',items=[(effect, effect) for effect in listOfEffects],onchange=search_effect,selection_box_height=7)
 effect_result_label = effect_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
 
 #creating the ingredient search submenu
-ingredient_submenu = pygame_menu.Menu('Potion Ingredient Search', 800,600, theme=custom_theme)
+ingredient_submenu = pygame_menu.Menu('Potion Ingredient Search', 1920,1080, theme=custom_theme)
 ingredient_submenu.add.dropselect(title='ingredient: ',items=[(ingredient, ingredient) for ingredient in ingredients.keys()],onchange=search_ingredient,selection_box_height=7)
 ingredient_result_label = ingredient_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
 
