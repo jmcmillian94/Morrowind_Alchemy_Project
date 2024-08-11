@@ -5,16 +5,23 @@ from ingredients_dict import *
 root = Tk()
 root.title("Morrowind Alchemy Helper")
 root.geometry("600x400")
+root.configure(bg='#eab974')
 
 # Create frames for layout
 left_frame = Frame(root)
-left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="n")
+left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
+left_frame.configure(bg='#eab974')
 
-right_frame = Frame(root)
-right_frame.grid(row=0, column=1, padx=10, pady=10, sticky="n")
+right_frame = Frame(root, bd=2, relief="solid", width=200, height=350)
+right_frame.grid(row=0, column=1, padx=10, pady=10, sticky="ns")
+right_frame.grid_propagate(False)
 
-info_frame = Frame(root)
-info_frame.grid(row=0, column=2, padx=10, pady=10, sticky="n")
+info_frame = Frame(root, bd=2, relief="solid", width=200, height=350)
+info_frame.grid(row=0, column=2, padx=10, pady=10, sticky="ns")
+info_frame.grid_propagate(False) 
+
+
+Label(right_frame, text="Select an option from the Menu", wraplength=180).grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
 # Function to clear right_frame
 def clear_right_frame():
@@ -24,7 +31,7 @@ def clear_right_frame():
 
 search_result = StringVar()
 search_result.set("Search results will appear here.")
-Label(info_frame, textvariable=search_result).grid(row=0, column=0, padx=10, pady=10)
+Label(info_frame, textvariable=search_result, wraplength=180, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
 
 #Fuction that searches ingredient dict
 def ingredient_search(value):
@@ -65,9 +72,9 @@ def open_effect_search():
     
 
 # Creating buttons in the left frame
-Button(left_frame, text="Search by Ingredient", command=open_ingredient_search).grid(row=0, column=0, pady=5)
-Button(left_frame, text="Search by Effect", command=open_effect_search).grid(row=1, column=0, pady=5)
-Button(left_frame, text="Quit", command=root.quit).grid(row=2, column=0, pady=5)
+Button(left_frame, text="Search by Ingredient", command=open_ingredient_search,width=16,height=3,cursor="hand2").grid(row=0, column=0, pady=5)
+Button(left_frame, text="Search by Effect", command=open_effect_search,width=16,height=3,cursor="hand2").grid(row=1, column=0, pady=5)
+Button(left_frame, text="Quit", command=root.quit,width=16,height=3,cursor="hand2").grid(row=2, column=0, pady=5)
 
 
 root.mainloop()
