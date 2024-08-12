@@ -4,6 +4,6 @@ Morrowind has a very robust alchemy system. Throughout the game are numerous dif
 
 That is where the Morrowind Alchemy Project comes in! This is a python program I am designing that allows you to easily search either an ingredient to view its effects, or search a potion effect to get a list of ingredients that have that effect. No more scouring the internet looking for webpages of Alchemy ingredients! This is a one stop shop.
 
-The program is designed using the pygame and pygame-menu libraries to create the interface. The rest of the program is comprised of dictionaries and for loops that do the actual search engine work.
+The program is designed using the tkinter and pygame libraries to create the interface. The rest of the program is comprised of dictionaries and for loops that do the actual search engine work.
 
 This is a work in progress and I plan to add additional features such as lists of re-stocking merchants that sell particular ingredients.
