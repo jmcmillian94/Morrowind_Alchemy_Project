@@ -83,28 +83,51 @@ def search_effect(value):
     else:
         search_result.set('Effect not found. Please try again or type exit to return to previous menu.')
 
+#Function that makes listbox selection work
+def get_selected_value(listbox):
+    # Retrieve the selected item from the Listbox
+    selection = listbox.curselection()
+    if selection:
+        return listbox.get(selection[0])
+    return None
+
 # Function to display ingredient search
 def open_ingredient_search():
     clear_right_frame()
     Label(right_frame, text="Choose an Ingredient:").grid(row=0, column=0, padx=10, pady=10)
-    ingredient_var = StringVar(right_frame)
-    OptionMenu(right_frame, ingredient_var, *ingredients).grid(row=1, column=0, padx=10, pady=10)
-    Button(right_frame, text="Search", command=lambda: ingredient_search(ingredient_var.get())).grid(row=2, column=0, padx=10, pady=10)
+    ingredient_listbox = Listbox(right_frame, selectmode=SINGLE, exportselection=False)
+    ingredient_listbox.grid(row=1, column=0, padx=10, pady=10)
+
+    # Populate the Listbox with ingredients
+    for ingredient in ingredients:
+        ingredient_listbox.insert(END, ingredient)
+
+    # Button to trigger the search, passing the selected ingredient
+    Button(right_frame, text="Search", command=lambda: ingredient_search(get_selected_value(ingredient_listbox))).grid(row=2, column=0, padx=10, pady=10)
+
 
 # Function to display effect search
 def open_effect_search():
     clear_right_frame()
     Label(right_frame, text="Enter an Effect:").grid(row=0, column=0, padx=10, pady=10)
-    effect_var = StringVar(right_frame)
-    OptionMenu(right_frame, effect_var, *listOfEffects).grid(row=1, column=0, padx=10, pady=10)
-    Button(right_frame, text="Search", command=lambda: search_effect(effect_var.get())).grid(row=2, column=0, padx=10, pady=10)
+    effect_listbox = Listbox(right_frame, selectmode=SINGLE, exportselection=False)
+    effect_listbox.grid(row=1, column=0, padx=10, pady=10)
+
+    # Populate the Listbox with ingredients
+    for effect in listOfEffects:
+        effect_listbox.insert(END, effect)
+
+    # Button to trigger the search, passing the selected ingredient
+    Button(right_frame, text="Search", command=lambda: search_effect(get_selected_value(effect_listbox))).grid(row=2, column=0, padx=10, pady=10)
     
 
 # Creating buttons in the left frame
-Button(left_frame, text="Search by Ingredient", command=open_ingredient_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=0, column=0, pady=5)
-Button(left_frame, text="Search by Effect", command=open_effect_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=1, column=0, pady=5)
-Button(left_frame, text="Quit", command=root.quit,width=18,height=2,cursor="hand2", bg='#70552a',relief="raised").grid(row=2, column=0, pady=5)
-Button(left_frame, text="Music On/Off", command=toggle_music ,width=12,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=3, column=0, pady=20)
+Button(left_frame, text="Search by Ingredient", command=open_ingredient_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised", font=("Cinzel", 12, "bold")).grid(row=0, column=0, pady=5)
+Button(left_frame, text="Search by Effect", command=open_effect_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised", font=("Cinzel", 12, "bold")).grid(row=1, column=0, pady=5)
+Button(left_frame, text="Quit", command=root.quit,width=18,height=2,cursor="hand2", bg='#70552a',relief="raised", font=("Cinzel", 12, "bold")).grid(row=2, column=0, pady=5)
+Button(left_frame, text="Music On/Off", command=toggle_music ,width=12,height=2,cursor="hand2",bg='#70552a',relief="raised", font=("Cinzel", 12, "bold")).grid(row=3, column=0, pady=20)
+
+
 
 
 play_background_music()
