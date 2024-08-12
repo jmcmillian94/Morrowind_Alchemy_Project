@@ -1,113 +1,114 @@
-#import necessary libraries
-from time import sleep
+from tkinter import *
+from ingredients_dict import *
 import pygame
-import pygame_menu
-from pygame_menu import themes
-from ingredients_dict import ingredients
-from ingredients_dict import listOfEffects
+import tkinter.font as tkfont
 
-#set title and icon that appear at top of window
-pygame.display.set_caption('Morrowind Alchemy Helper')
-icon = pygame.image.load('alchemy.png')
-pygame.display.set_icon(icon)
+#making a root window
+root = Tk()
+root.title("Morrowind Alchemy Helper")
+icon = PhotoImage(file='alchemy.png')
+root.iconphoto(False, icon)
+root.geometry("750x400")
+root.configure(bg='#af9667')
 
-#initialize pygame, game screen, and backgorund image
-pygame.init()
-surface = pygame.display.set_mode((1920,1080))
-background_image = pygame.image.load('background.png')
-background_image = pygame.transform.scale(background_image, (1920,1080))
+default_font = tkfont.Font(family="Cinzel", size=12)
 
+# Set the default font for all widgets
+root.option_add("*Font", default_font)
 
-#function used in loop that draws background image on screen
-def draw_background():
-    surface.blit(background_image, (0, 0))
-
-#initialize pygame sound mixer and add background music
+#initialize pygame mixer
 pygame.mixer.init()
-pygame.mixer.music.load('explore.wav')
-pygame.mixer.music.play(-1) 
+
+#fucntion that plays background music
+def play_background_music():
+    pygame.mixer.music.load("explore.wav")  # Load the music file
+    pygame.mixer.music.play(-1)  # Play the music in a loop (-1 means infinite loop)
+
+#set music volume
 initial_volume = 0.2
 pygame.mixer.music.set_volume(initial_volume)
 
-#create function that allows music to be toggled on and off
-music_playing = True
-
+#function that toggles music on/off
 def toggle_music():
-    global music_playing
-    if music_playing:
-        pygame.mixer.music.pause()
+    if pygame.mixer.music.get_busy():  # Check if music is currently playing
+        pygame.mixer.music.pause()  # Pause the music
     else:
-        pygame.mixer.music.unpause()
-    music_playing = not music_playing
+        pygame.mixer.music.unpause()  # Unpause the music
 
-#creating a custom theme for pygame menus
-custom_theme = themes.THEME_GREEN.copy()
-custom_theme.background_color = (128, 128, 128)
-custom_theme.title_font = pygame_menu.font.FONT_FIRACODE_BOLD_ITALIC
-custom_theme.widget_font = pygame_menu.font.FONT_FIRACODE_BOLD_ITALIC
-custom_theme.title_font_color = (0,0,0) 
-custom_theme.widget_font_color = (0,0,0)
-custom_theme.selection_color = (20,20,150)
-custom_theme.widget_selection_effect = pygame_menu.widgets.LeftArrowSelection(arrow_size=(10, 15), arrow_right_margin=5, arrow_vertical_offset=0, blink_ms=2)
-custom_theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY
+# Create frames for layout
+left_frame = Frame(root)
+left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
+left_frame.configure(bg='#af9667')
 
-#functions needed for the ingredient search menu to work
-def ingredient_menu():
-    mainmenu._open(ingredient_submenu)
-    
-ingredient_result_label = None
+right_frame = Frame(root, bd=2, relief="sunken", width=230, height=350)
+right_frame.grid(row=0, column=1, padx=10, pady=10, sticky="ns")
+right_frame.grid_propagate(False)
 
-def search_ingredient(selected, value):
-    global ingredient_result_label
+
+info_frame = Frame(root, bd=2, relief="sunken", width=230, height=350)
+info_frame.grid(row=0, column=2, padx=10, pady=10, sticky="ns")
+info_frame.grid_propagate(False) 
+
+
+Label(right_frame, text="Select an option from the Menu", wraplength=180).grid(row=0, column=0, padx=10, pady=10, sticky="w")
+
+# Function to clear right_frame
+def clear_right_frame():
+    for widget in right_frame.winfo_children():
+        widget.destroy()
+
+
+search_result = StringVar()
+search_result.set("Search results will appear here.")
+Label(info_frame, textvariable=search_result, wraplength=180, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
+
+#Fuction that searches ingredient dict
+def ingredient_search(value):
+    global search_result
     potion_ingredient = value.lower()
     if potion_ingredient in ingredients:
         effects = ingredients[potion_ingredient]
-        ingredient_result_label.set_title(', '.join(effects) if effects else 'No ingredients found.')
+        search_result.set('\n'.join(effects) if effects else 'No ingredients found.')
     else:
-        ingredient_result_label.set_title('Ingredient not found. Please try again or type exit to return to previous menu.')
+        search_result.set('Ingredient not found. Please try again or type exit to return to previous menu.')
 
-#functions needed for the effect search menu to work
-def effect_menu():
-    mainmenu._open(effect_submenu)
 
-effect_result_label = None
-
-def search_effect(selected, value):
-    global effect_result_label
+#function that searches list of effects
+def search_effect(value):
+    global search_result
     potion_effect = value.lower()
     if potion_effect in listOfEffects:
         found_keys = [key for key, value in ingredients.items() if potion_effect in value]
-        effect_result_label.set_title(', '.join(found_keys) if found_keys else 'No ingredients found.')
+        search_result.set('\n'.join(found_keys) if found_keys else 'No ingredients found.')
     else:
-        effect_result_label.set_title('Effect not found. Please try again or type exit to return to previous menu.')
+        search_result.set('Effect not found. Please try again or type exit to return to previous menu.')
 
- 
-#creating the main menu
-mainmenu = pygame_menu.Menu('Morrowind Alchemy Helper', 1920,1080, theme=custom_theme)
-mainmenu.add.button('Search by Ingredient', ingredient_menu)
-mainmenu.add.button('Search by Effect', effect_menu)
-mainmenu.add.button('Music ON/OFF', toggle_music)
-mainmenu.add.button('Quit', pygame_menu.events.EXIT)
+# Function to display ingredient search
+def open_ingredient_search():
+    clear_right_frame()
+    Label(right_frame, text="Choose an Ingredient:").grid(row=0, column=0, padx=10, pady=10)
+    ingredient_var = StringVar(right_frame)
+    OptionMenu(right_frame, ingredient_var, *ingredients).grid(row=1, column=0, padx=10, pady=10)
+    Button(right_frame, text="Search", command=lambda: ingredient_search(ingredient_var.get())).grid(row=2, column=0, padx=10, pady=10)
 
-#creating the effect search submenu
-effect_submenu = pygame_menu.Menu('Potion Effect Search', 1920,1080, theme=custom_theme)
-effect_submenu.add.dropselect(title='effect: ',items=[(effect, effect) for effect in listOfEffects],onchange=search_effect,selection_box_height=7)
-effect_result_label = effect_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
-
-#creating the ingredient search submenu
-ingredient_submenu = pygame_menu.Menu('Potion Ingredient Search', 1920,1080, theme=custom_theme)
-ingredient_submenu.add.dropselect(title='ingredient: ',items=[(ingredient, ingredient) for ingredient in ingredients.keys()],onchange=search_ingredient,selection_box_height=7)
-ingredient_result_label = ingredient_submenu.add.label('Search results will appear here.', max_char=-1, wordwrap=True)
-
-#pygame loop
-while True:
-    events = pygame.event.get()
-    for event in events:
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
+# Function to display effect search
+def open_effect_search():
+    clear_right_frame()
+    Label(right_frame, text="Enter an Effect:").grid(row=0, column=0, padx=10, pady=10)
+    effect_var = StringVar(right_frame)
+    OptionMenu(right_frame, effect_var, *listOfEffects).grid(row=1, column=0, padx=10, pady=10)
+    Button(right_frame, text="Search", command=lambda: search_effect(effect_var.get())).grid(row=2, column=0, padx=10, pady=10)
     
-    draw_background()
-    mainmenu.update(events)
-    mainmenu.draw(surface)
-    pygame.display.flip()
+
+# Creating buttons in the left frame
+Button(left_frame, text="Search by Ingredient", command=open_ingredient_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=0, column=0, pady=5)
+Button(left_frame, text="Search by Effect", command=open_effect_search,width=18,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=1, column=0, pady=5)
+Button(left_frame, text="Quit", command=root.quit,width=18,height=2,cursor="hand2", bg='#70552a',relief="raised").grid(row=2, column=0, pady=5)
+Button(left_frame, text="Music On/Off", command=toggle_music ,width=12,height=2,cursor="hand2",bg='#70552a',relief="raised").grid(row=3, column=0, pady=20)
+
+
+play_background_music()
+
+root.mainloop()
+
+pygame.mixer.music.stop()
