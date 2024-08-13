@@ -80,7 +80,8 @@ listOfEffects = ['blind','burden','night eye','cure blight disease','cure common
                 'weakness to fire','weakness to poison','drain magicka','drain personality','recall','reflect','resist fire','drain willpower','resist paralysis','resist poison','resist shock','fortify agility',
                 'restore intelligence','restore magicka','frost damage','swift swim','lightning shield']
 
-restock_merchants = {'ajira':{'location':'Balmora, Guild of Mages', 'ingredients': ['black anther','comberry','Crab Meat','Heather','Hound Meat','Kwama Cuttle','Scales','Small Kwama Egg','Willow Anther' ]}
-                     'Anarenen':{}
+restock_merchants = {'ajira':{'location':'Balmora, Guild of Mages', 'ingredients': ['black anther','comberry','Crab Meat','Heather','Hound Meat','Kwama Cuttle','Scales','Small Kwama Egg','Willow Anther' ]},
+                     'Anarenen':{'location':'Aldruhn, Guild of Mages', 'ingredients': ['Bloat','Bonemeal','Comberry','Crab Meat','Diamond', 'Fire Salts','Heather', 'Vampire Dust']},
+                     
                      }
 
