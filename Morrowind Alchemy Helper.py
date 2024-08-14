@@ -8,7 +8,7 @@ root = Tk()
 root.title("Morrowind Alchemy Helper")
 icon = PhotoImage(file='alchemy.png')
 root.iconphoto(False, icon)
-root.geometry("750x400")
+root.geometry("1200x400")
 root.configure(bg='#af9667')
 
 default_font = tkfont.Font(family="Cinzel", size=12)
@@ -49,6 +49,10 @@ info_frame = Frame(root, bd=2, relief="sunken", width=230, height=350)
 info_frame.grid(row=0, column=2, padx=10, pady=10, sticky="ns")
 info_frame.grid_propagate(False) 
 
+info_frame_2 = Frame(root, bd=2, relief="sunken", width=430, height=350)
+info_frame_2.grid(row=0, column=3, padx=10, pady=10, sticky="ns")
+info_frame_2.grid_propagate(False) 
+
 
 Label(right_frame, text="Select an option from the Menu", wraplength=180).grid(row=0, column=0, padx=10, pady=10, sticky="w")
 
@@ -62,13 +66,27 @@ search_result = StringVar()
 search_result.set("Search results will appear here.")
 Label(info_frame, textvariable=search_result, wraplength=180, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
 
+search_result_2 = StringVar()
+search_result_2.set("Additional info will appear here.")
+Label(info_frame_2, textvariable=search_result_2, wraplength=400, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
+
 #Fuction that searches ingredient dict
 def ingredient_search(value):
     global search_result
+    global search_result_2
     potion_ingredient = value.lower()
     if potion_ingredient in ingredients:
         effects = ingredients[potion_ingredient]
         search_result.set('\n'.join(effects) if effects else 'No ingredients found.')
+        merchant_locations = []
+        for merchant, info in restock_merchants.items():
+             if any(potion_ingredient in item for item in info['ingredients']):
+                 merchant_locations.append(f'{merchant}, {info["location"]}')
+        if merchant_locations:
+            search_result_2.set('\n'.join(merchant_locations))  
+        else:
+            search_result_2.set('No merchants found selling this ingredient.')       
+
     else:
         search_result.set('Ingredient not found. Please try again or type exit to return to previous menu.')
 
@@ -98,8 +116,10 @@ def open_ingredient_search():
     ingredient_listbox = Listbox(right_frame, selectmode=SINGLE, exportselection=False)
     ingredient_listbox.grid(row=1, column=0, padx=10, pady=10)
 
+    sorted_ingredients = sorted(ingredients.keys())
+
     # Populate the Listbox with ingredients
-    for ingredient in ingredients:
+    for ingredient in sorted_ingredients:
         ingredient_listbox.insert(END, ingredient)
 
     # Button to trigger the search, passing the selected ingredient
