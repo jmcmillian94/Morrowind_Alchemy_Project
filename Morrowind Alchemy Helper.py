@@ -35,6 +35,7 @@ def toggle_music():
     else:
         pygame.mixer.music.unpause()  # Unpause the music
 
+
 # Create frames for layout
 left_frame = Frame(root)
 left_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ns")
@@ -67,7 +68,7 @@ search_result.set("Search results will appear here.")
 Label(info_frame, textvariable=search_result, wraplength=180, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
 
 search_result_2 = StringVar()
-search_result_2.set("Additional info will appear here.")
+search_result_2.set("Restocking merchant info will appear here.")
 Label(info_frame_2, textvariable=search_result_2, wraplength=400, justify="left", anchor="nw").grid(row=0, column=0, padx=10, pady=10, sticky="nw")
 
 #Fuction that searches ingredient dict
@@ -83,7 +84,7 @@ def ingredient_search(value):
              if any(potion_ingredient in item for item in info['ingredients']):
                  merchant_locations.append(f'{merchant}, {info["location"]}')
         if merchant_locations:
-            search_result_2.set('\n'.join(merchant_locations))  
+            search_result_2.set('\n\n'.join(merchant_locations))  
         else:
             search_result_2.set('No merchants found selling this ingredient.')       
 
@@ -94,6 +95,7 @@ def ingredient_search(value):
 #function that searches list of effects
 def search_effect(value):
     global search_result
+    search_result_2.set("Restocking merchant info will appear here.")
     potion_effect = value.lower()
     if potion_effect in listOfEffects:
         found_keys = [key for key, value in ingredients.items() if potion_effect in value]
