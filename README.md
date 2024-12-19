@@ -34,4 +34,4 @@ Power BI will display the tables in your SQLite database.
 Select the tables or views you want to import.
 Click Load to bring the data into Power BI.
 
-![PowerBI Screenshot](PowerBI_Screenshot.png)
+![PowerBI Screenshot](PowerBIScreenshot.png)
