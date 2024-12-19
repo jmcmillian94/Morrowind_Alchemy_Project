@@ -2,8 +2,35 @@ For those who arent familiar, The Elder Scrolls III: Morrowind is a 2002 action 
 
 Morrowind has a very robust alchemy system. Throughout the game are numerous differnt ingredients which each have up to four unique effects. Mixing ingredients with like effects can create potions with that effect. The problem is that there is no in game guide telling you which ingredients contain which effects, the only way to know is to actually get you hands on the ingredient itself. To make things even more vague, if your characters alchemy skill isnt high enough, you may not even be able to see all four effects of an ingredient even if you encounter it.
 
-That is where the Morrowind Alchemy Project comes in! This is a python program I am designing that allows you to easily search either an ingredient to view its effects, or search a potion effect to get a list of ingredients that have that effect. No more scouring the internet looking for webpages of Alchemy ingredients! This is a one stop shop.
+That is where the Morrowind Alchemy Project comes in! Using a SQLite database i have stored all of the relevant data needed for searching ingredients, their effects, weights, values, and the vendors that sell unlimited supplies of that ingredient. Using primary and foreign keys I have created relationships to all necessary data to make querying simple. A copy of the database ERD diagram is included in this repo.
 
-The program is designed using the tkinter and pygame libraries to create the interface. The rest of the program is comprised of dictionaries and for loops that do the actual search engine work.
+Using PowerBI I have created a dashboard allowing you to search for any ingredient in the game using the search bar/slicer located at the left of the screen. The other visuals will then be populated with all relevant data for that ingredient which includes the effects that ingredient contains, its description, a list of vendors that seel that ingredient and their location, along with the ingredients weight and value.
 
-This is a work in progress and I plan to add additional features such as lists of re-stocking merchants that sell particular ingredients.
+Note that in order to get SQLite databases to work with PowerBI you must install the SQLite ODBC driver and configure the database as an ODBC data source. The steps for that are as follows:
+
+Step 1: Install SQLite ODBC Driver
+Download the SQLite ODBC Driver by going to the SQLite ODBC Driver website.
+Download the appropriate version (32-bit or 64-bit) based on your Power BI version.
+Install the Driver
+
+Step 2: Set Up an ODBC Data Source
+Open ODBC Data Source Administrator by pressing Win + R and type 'odbcad32' and press enter
+If you're using 64-bit Power BI, use the 64-bit ODBC Data Source Administrator (odbcad32.exe in C:\Windows\System32).
+For 32-bit Power BI, use the 32-bit version (odbcad32.exe in C:\Windows\SysWOW64).
+Click Add under the User DSN or System DSN tab (System DSN is available to all users).
+Select SQLite3 ODBC Driver and click Finish.
+Configure the SQLite ODBC Driver:
+Provide a Data Source Name (DSN) 
+Browse to select the Morrowind_Alchemy database file
+Click OK to save the data source.
+
+Step 3: Connect Power BI to SQLite
+Open the PowerBI file
+Go to Home > Get Data > ODBC.
+In the ODBC dialog, select DSN.
+Choose the data source you created earlier
+Click OK
+Power BI will display the tables in your SQLite database.
+Select the tables or views you want to import.
+Click Load to bring the data into Power BI.
+
