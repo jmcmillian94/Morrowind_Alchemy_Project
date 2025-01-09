@@ -1,3 +1,5 @@
+[Check out a video demonstration of the tool here](https://www.youtube.com/watch?v=L1jBTy7V1zQ)
+
 For those who arent familiar, The Elder Scrolls III: Morrowind is a 2002 action role-playing game developed by Bethesda Game Studios and published by Bethesda Softworks. Even though this game is over two decades olds at this point, it is still celebrated as one of the greatest open world RPG's ever created. Though it was groundbreaking at the time, it does suffer from some antiquated game mechanics and is missing many quality of life features that we take for granted in modern games.
 
 Morrowind has a very robust alchemy system. Throughout the game are numerous differnt ingredients which each have up to four unique effects. Mixing ingredients with like effects can create potions with that effect. The problem is that there is no in game guide telling you which ingredients contain which effects, the only way to know is to actually get you hands on the ingredient itself. To make things even more vague, if your characters alchemy skill isnt high enough, you may not even be able to see all four effects of an ingredient even if you encounter it.
