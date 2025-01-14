@@ -1,16 +1,16 @@
 [Check out a video demonstration of the tool here](https://www.youtube.com/watch?v=L1jBTy7V1zQ)
 
-For those who arent familiar, The Elder Scrolls III: Morrowind is a 2002 action role-playing game developed by Bethesda Game Studios and published by Bethesda Softworks. Even though this game is over two decades olds at this point, it is still celebrated as one of the greatest open world RPG's ever created. Though it was groundbreaking at the time, it does suffer from some antiquated game mechanics and is missing many quality of life features that we take for granted in modern games.
+For those who aren’t familiar, The Elder Scrolls III: Morrowind is a 2002 action role-playing game developed by Bethesda Game Studios and published by Bethesda Softworks. Even though this game is over two decades olds at this point, it is still celebrated as one of the greatest open world RPG's ever created. Though it was groundbreaking at the time, it does suffer from some antiquated game mechanics and is missing many quality of life features that we take for granted in modern games.
 
-Morrowind has a very robust alchemy system. Throughout the game are numerous differnt ingredients which each have up to four unique effects. Mixing ingredients with like effects can create potions with that effect. The problem is that there is no in game guide telling you which ingredients contain which effects, the only way to know is to actually get you hands on the ingredient itself. To make things even more vague, if your characters alchemy skill isnt high enough, you may not even be able to see all four effects of an ingredient even if you encounter it.
+Morrowind has a very robust alchemy system. Throughout the game are numerous different ingredients which each have up to four unique effects. Mixing ingredients with like effects can create potions with that effect. The problem is that there is no in game guide telling you which ingredients contain which effects, the only way to know is to get your hands on the ingredient itself. To make things even more vague, if your character’s alchemy skill isn’t high enough, you may not even be able to see all four effects of an ingredient even if you encounter it.
 
-That is where the Morrowind Alchemy Project comes in! Using a SQLite database i have stored all of the relevant data needed for searching ingredients or ingredient effects. Using primary and foreign keys I have created relationships to all necessary data to make querying simple. A copy of the database ERD diagram is included in this repo for reference.
+That is where the Morrowind Alchemy Project comes in! Using a SQLite database I have stored all of the relevant data needed for searching ingredients or ingredient effects. Using primary and foreign keys I have created relationships to all necessary data to make querying simple. A copy of the database ERD diagram is included in this repo for reference.
 
-Using PowerBI I have created a dashboard allowing you to search for any ingredient in the game using the search bar/slicer located at the left of the screen. The other visuals will then be populated with all relevant data for that ingredient which includes the effects that ingredient contains, its description, a list of vendors that seel that ingredient and their location, along with the ingredients weight and value. The visual that lists effects is also a slicer and can be used to filter out ingredients in the ingredients list to find ones that contain that specific effect.
+Using PowerBi I have created a dashboard allowing you to search for any ingredient in the game using the search bar/slicer located at the left of the screen. The other visuals will then be populated with all relevant data for that ingredient which includes the effects that ingredient contains, its description, a list of vendors that sell that ingredient and their location, along with the ingredients weight and value. The visual that lists effects is also a slicer and can be used to filter out ingredients in the ingredients list to find ones that contain that specific effect.
 
-![PowerBI Screenshot](PowerBIScreenshot.png)
+![PowerBi Screenshot](PowerBIScreenshot.png)
 
-Note that in order to get SQLite databases to work with PowerBI you must install the SQLite ODBC driver and configure the database as an ODBC data source. The steps for that are as follows:
+Note that in order to get SQLite databases to work with PowerBi you must install the SQLite ODBC driver and configure the database as an ODBC data source. The steps for that are as follows:
 
 Step 1: Install SQLite ODBC Driver
 Download the SQLite ODBC Driver by going to the SQLite ODBC Driver website.
@@ -29,7 +29,7 @@ Browse to select the Morrowind_Alchemy database file
 Click OK to save the data source.
 
 Step 3: Connect Power BI to SQLite
-Open the PowerBI file
+Open the PowerBi file
 Go to Home > Get Data > ODBC.
 In the ODBC dialog, select DSN.
 Choose the data source you created earlier
@@ -37,4 +37,6 @@ Click OK
 Power BI will display the tables in your SQLite database.
 Select the tables or views you want to import.
 Click Load to bring the data into Power BI.
+
+
 
